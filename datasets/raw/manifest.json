@@ -1,0 +1,15 @@
+{
+  "sources": [
+    "news",
+    "gov",
+    "ads"
+  ],
+  "max_pages": 1000,
+  "language": "en",
+  "timestamp": "2025-09-21T14:37:03.447Z",
+  "files": [
+    "news_1758465423448.jsonl",
+    "gov_1758465423448.jsonl",
+    "ads_1758465423449.jsonl"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "auc": 0.78,
+  "precision": 0.71,
+  "recall": 0.69,
+  "training_time": "2 hours"
+}

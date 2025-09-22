@@ -1,0 +1,4 @@
+packages:
+  - "packages/*"
+  - "datasets"
+  - "scripts"

@@ -1,0 +1,32 @@
+{
+  "name": "@trustlens/docs",
+  "version": "0.1.0",
+  "description": "User documentation, API docs, and research notes",
+  "private": true,
+  "scripts": {
+    "build": "next build && next export",
+    "dev": "next dev -p 3001",
+    "start": "next start -p 3001",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf .next out"
+  },
+  "dependencies": {
+    "next": "^14.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "nextra": "^2.13.0",
+    "nextra-theme-docs": "^2.13.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "eslint": "^8.0.0",
+    "eslint-config-next": "^14.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

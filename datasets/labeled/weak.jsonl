@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-09-21T14:43:13.425Z",
+  "labeling_functions": 5,
+  "coverage": 0.72,
+  "conflicts": 0.18,
+  "labels": [
+    "fear_framing",
+    "strawman",
+    "ad_hominem",
+    "cherry_picking",
+    "loaded_language"
+  ]
+}

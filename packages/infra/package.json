@@ -1,0 +1,23 @@
+{
+  "name": "@trustlens/infra",
+  "version": "0.1.0",
+  "description": "Infrastructure as Code (Terraform), Docker, Kubernetes, GitHub Actions",
+  "private": true,
+  "scripts": {
+    "build": "echo 'No build needed for infrastructure'",
+    "dev": "echo 'No dev mode for infrastructure'",
+    "test": "terraform validate && helm lint charts/*",
+    "lint": "tflint",
+    "typecheck": "echo 'No typecheck needed for infrastructure'",
+    "clean": "rm -rf .terraform terraform.tfstate*",
+    "plan": "terraform plan",
+    "apply": "terraform apply",
+    "destroy": "terraform destroy"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

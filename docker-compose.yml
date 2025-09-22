@@ -1,0 +1,122 @@
+version: '3.8'
+
+services:
+  # Database
+  postgres:
+    image: postgres:15
+    container_name: trustlens-postgres
+    environment:
+      POSTGRES_DB: trustlens
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./packages/api/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis for caching and queues
+  redis:
+    image: redis:7-alpine
+    container_name: trustlens-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # API Service
+  api:
+    build:
+      context: ./packages/api
+      dockerfile: Dockerfile
+    container_name: trustlens-api
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/trustlens
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=dev-secret-key
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./packages/api:/app
+      - /app/node_modules
+    command: npm run dev
+
+  # Web Application
+  webapp:
+    build:
+      context: ./packages/webapp
+      dockerfile: Dockerfile
+    container_name: trustlens-webapp
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=http://localhost:8080
+    depends_on:
+      - api
+    volumes:
+      - ./packages/webapp:/app
+      - /app/node_modules
+      - /app/.next
+    command: npm run dev
+
+  # Model Service (Python)
+  model:
+    build:
+      context: ./packages/model
+      dockerfile: Dockerfile
+    container_name: trustlens-model
+    ports:
+      - "8090:8090"
+    environment:
+      - PYTHONPATH=/app
+      - MODEL_CACHE_DIR=/app/models
+    volumes:
+      - ./packages/model:/app
+      - model_cache:/app/models
+    command: python -m uvicorn main:app --host 0.0.0.0 --port 8090 --reload
+
+  # Background Workers
+  worker:
+    build:
+      context: ./packages/api
+      dockerfile: Dockerfile
+    container_name: trustlens-worker
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/trustlens
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./packages/api:/app
+      - /app/node_modules
+    command: npm run worker
+
+volumes:
+  postgres_data:
+  redis_data:
+  model_cache:
+
+networks:
+  default:
+    name: trustlens-network

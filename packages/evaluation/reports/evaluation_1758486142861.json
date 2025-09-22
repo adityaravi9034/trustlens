@@ -1,0 +1,18 @@
+{
+  "in_distribution": {
+    "macro_f1": 0.74,
+    "calibration_ece": 0.07
+  },
+  "out_of_distribution": {
+    "macro_f1": 0.62,
+    "ood_detection_auc": 0.85
+  },
+  "fairness": {
+    "demographic_parity": 0.93,
+    "equal_opportunity": 0.91
+  },
+  "explanation_quality": {
+    "faithfulness": 0.78,
+    "plausibility": 0.82
+  }
+}

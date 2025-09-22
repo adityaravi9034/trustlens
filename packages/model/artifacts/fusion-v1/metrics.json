@@ -1,0 +1,5 @@
+{
+  "fusion_strategy": "late",
+  "improvement_over_text": 0.05,
+  "final_f1": 0.79
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrustLens</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <div class="popup-header">
+      <div class="logo">
+        <img src="icons/icon32.png" alt="TrustLens" class="logo-icon">
+        <span class="logo-text">TrustLens</span>
+      </div>
+      <div class="status-indicator" id="statusIndicator">
+        <span class="status-dot"></span>
+        <span class="status-text">Analyzing...</span>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="popup-content">
+      <!-- Page Analysis Summary -->
+      <div class="analysis-summary" id="analysisSummary">
+        <div class="trust-score">
+          <div class="score-circle">
+            <span class="score-value" id="trustScore">--</span>
+            <span class="score-unit">%</span>
+          </div>
+          <div class="score-label">Trust Score</div>
+        </div>
+
+        <div class="quick-stats">
+          <div class="stat-item">
+            <span class="stat-value" id="itemsAnalyzed">0</span>
+            <span class="stat-label">Items Analyzed</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="flaggedItems">0</span>
+            <span class="stat-label">Flagged</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Breakdown -->
+      <div class="category-section">
+        <h3>Detection Categories</h3>
+        <div class="category-list" id="categoryList">
+          <!-- Categories will be populated by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="actions-section">
+        <button class="action-btn primary" id="analyzePageBtn">
+          <span class="btn-icon">🔍</span>
+          Re-analyze Page
+        </button>
+        <button class="action-btn secondary" id="toggleHighlightsBtn">
+          <span class="btn-icon">👁️</span>
+          Toggle Highlights
+        </button>
+      </div>
+
+      <!-- Settings Toggle -->
+      <div class="settings-section">
+        <div class="setting-item">
+          <label class="setting-label">
+            <input type="checkbox" id="realTimeToggle" class="setting-checkbox">
+            <span class="checkmark"></span>
+            Real-time Analysis
+          </label>
+        </div>
+        <div class="setting-item">
+          <label class="setting-label">
+            <input type="checkbox" id="notificationsToggle" class="setting-checkbox">
+            <span class="checkmark"></span>
+            Show Notifications
+          </label>
+        </div>
+      </div>
+
+      <!-- Confidence Threshold -->
+      <div class="threshold-section">
+        <label for="confidenceSlider" class="threshold-label">
+          Sensitivity: <span id="confidenceValue">70%</span>
+        </label>
+        <input type="range" id="confidenceSlider" class="threshold-slider"
+               min="10" max="90" value="70" step="10">
+        <div class="threshold-marks">
+          <span>Low</span>
+          <span>Medium</span>
+          <span>High</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="popup-footer">
+      <button class="footer-btn" id="settingsBtn">Settings</button>
+      <button class="footer-btn" id="helpBtn">Help</button>
+      <button class="footer-btn" id="reportBtn">Report Issue</button>
+    </div>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div class="loading-spinner" id="loadingSpinner" style="display: none;">
+    <div class="spinner"></div>
+    <p>Analyzing content...</p>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
